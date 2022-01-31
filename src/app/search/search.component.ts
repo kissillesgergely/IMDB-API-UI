@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { IResult, ResultMap } from 'src/types/result.interface';
+import { FormControl, Validators } from '@angular/forms';
+import { IResult, ResultMap } from 'src/types/result';
 
 @Component({
   selector: 'app-search',
@@ -9,9 +9,13 @@ import { IResult, ResultMap } from 'src/types/result.interface';
 })
 export class SearchComponent implements OnInit {
   @Output() resultReady = new EventEmitter<ResultMap>();
-  titleToSearchFor = new FormControl('');
+  titleToSearchFor = new FormControl(
+    '',
+    // a minimal check if the input is adequate
+    [Validators.minLength(2)]
+  );
   results: IResult[] = [];
-  resultsInYearGroups: ResultMap = new Map<string, IResult[]>();
+  noResults: boolean = false;
 
   constructor() { }
 
@@ -20,48 +24,37 @@ export class SearchComponent implements OnInit {
 
   async fetchData(event: Event) {
     event.preventDefault();
+    this.noResults = false;
 
     // Have another function here, which replaces spaces or special characters
     let titleForAPICall = this.titleToSearchFor.value.replaceAll(' ', '+');
 
-    //get more than 10 results?
-    // put api key into an env file maybe? or reflect on it here or int he readme
-    const r = await fetch(`https://www.omdbapi.com/?apikey=8ea39b15&s=${titleForAPICall}`);
+    // If one wants more than 10 results there's a parameter to ask for second page
+    // Although this is not implemented here
+    const r = await fetch(
+      `https://www.omdbapi.com/?apikey=8ea39b15&s=${titleForAPICall}&type=movie`
+    );
     this.results = (await r.json()).Search;
+
+    if(!this.results) {
+      this.noResults = true;
+      // make the rest of the app know the new result list is empty
+      this.resultReady.emit(new Map<string, IResult[]>())
+      return;
+    }
     
     if (typeof Worker !== 'undefined') {
-      // Create a new
       const worker = new Worker(new URL('./search.worker', import.meta.url));
-      //const worker = new Worker('./search.worker', { type: 'module'});
       worker.onmessage = ({ data }) => {
-        //console.log(`page got message: ${data}`);
-        //this.resultReady.emit(data);
-        console.log(data)
+        this.resultReady.emit(data);
       };
-      worker.postMessage('hello');
+      worker.postMessage(this.results);
     } else {
       // Web Workers are not supported in this environment.
       // You should add a fallback so that your program still executes correctly.
+
+      // This is not implemented in frames of this coding challenge
     }
-
-    this.resultsInYearGroups = this.groupResults(this.results);
-    this.resultReady.emit(this.resultsInYearGroups);
-  }
-
-  groupResults(data: IResult[]) {
-    const resultsInYearGroups = new Map<string, IResult[]>();
-  
-    for(const result of data) {
-      if(!resultsInYearGroups.has(result.Year)) {
-        resultsInYearGroups.set(result.Year, []);
-      }
-  
-      resultsInYearGroups.get(result.Year)?.push(result);
-    }
-  
-    console.log(resultsInYearGroups);
-
-    return resultsInYearGroups;
   }
 }
 

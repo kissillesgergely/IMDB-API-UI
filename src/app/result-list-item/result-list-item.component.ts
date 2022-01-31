@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IResult, Result } from 'src/types/result.interface';
+import { IResult, Result } from 'src/types/result';
 
 @Component({
   selector: 'app-result-list-item',

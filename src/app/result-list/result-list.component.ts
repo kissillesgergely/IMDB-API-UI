@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IResult, ResultMap } from 'src/types/result.interface';
+import { IResult, ResultMap } from 'src/types/result';
 
 @Component({
   selector: 'app-result-list',
