@@ -1,0 +1,14 @@
+<div>
+  <form class="p-4">
+    <input 
+      type="text"
+      placeholder="Search for a title here" [formControl]="titleToSearchFor"
+      class="border-2 rounded border-black w-full p-2"
+    />
+    <div id="buttonbox" class="w-full">
+      <button (click)="fetchData($event)" class="">
+        Search
+      </button>
+    </div>
+  </form>
+</div>

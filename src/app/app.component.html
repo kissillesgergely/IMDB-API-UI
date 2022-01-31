@@ -1,0 +1,6 @@
+<div class="m-2">
+  <app-search (resultReady)="handleResultReady($event)"></app-search>
+  <app-result-list [groupedResults]="resultsInYearGroups"></app-result-list>
+</div>
+
+<router-outlet></router-outlet>
