@@ -3,12 +3,10 @@
     <input 
       type="text"
       placeholder="Search for a title here" [formControl]="titleToSearchFor"
-      class="border-2 rounded border-black w-full p-2"
+      class="border-2 rounded-full border-black w-64 p-2"
     />
-    <div id="buttonbox" class="w-full">
-      <button (click)="fetchData($event)" class="">
-        Search
-      </button>
-    </div>
+    <button (click)="fetchData($event)" class="w-20">
+      Search
+    </button>
   </form>
 </div>

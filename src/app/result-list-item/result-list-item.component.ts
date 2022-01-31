@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IResult, Result } from 'src/types/result.interface';
 
 @Component({
   selector: 'app-result-list-item',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./result-list-item.component.css']
 })
 export class ResultListItemComponent implements OnInit {
+  @Input() result: IResult = new Result();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  getLinkURL() {
+    return `https://www.imdb.com/title/${this.result.imdbID}/`
   }
 
 }

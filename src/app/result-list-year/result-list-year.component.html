@@ -1,1 +1,9 @@
-<p>result-list-year works!</p>
+<div>
+  <h1 class="text-2xl font-semibold m-5">{{year}}</h1>
+  <div class="grid grid-cols-1 md:grid-cols-3">
+    <div *ngFor="let result of results" class="col-span-1 my-5">
+      <app-result-list-item [result]="result"></app-result-list-item>
+    </div>
+  </div>  
+</div> 
+

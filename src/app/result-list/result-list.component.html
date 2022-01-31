@@ -1,5 +1,5 @@
-<div>
+<div class="max-w-screen-lg m-auto p-5">
   <div *ngFor="let year of groupedResults | keyvalue">
-    {{year.key}}
+    <app-result-list-year [year]="year.key" [results]="year.value"></app-result-list-year>
   </div>
 </div>

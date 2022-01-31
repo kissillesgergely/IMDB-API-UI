@@ -7,7 +7,7 @@ import { IResult, ResultMap } from 'src/types/result.interface';
   styleUrls: ['./result-list.component.css']
 })
 export class ResultListComponent implements OnInit {
-  @Input() groupedResults: ResultMap = new Map<string, IResult[]>(); 
+  @Input() groupedResults: ResultMap = new Map<string, IResult[]>();
 
   constructor() { }
 
