@@ -15,7 +15,7 @@ function groupResults(ungroupedData: IResult[]) {
   return resultsInYearGroups;
 }
 
-addEventListener('message', ({ data }) => {
+addEventListener('message', ({ data }: { data: IResult[]}) => {
   const response = groupResults(data)
   postMessage(response);
 });

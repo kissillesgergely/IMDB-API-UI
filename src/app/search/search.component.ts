@@ -9,11 +9,8 @@ import { IResult, ResultMap } from 'src/types/result';
 })
 export class SearchComponent implements OnInit {
   @Output() resultReady = new EventEmitter<ResultMap>();
-  titleToSearchFor = new FormControl(
-    '',
-    // a minimal check if the input is adequate
-    [Validators.minLength(2)]
-  );
+  // With a minimal check if the input is adequate
+  titleToSearchFor = new FormControl('', [Validators.minLength(2)]);
   results: IResult[] = [];
   noResults: boolean = false;
 
@@ -26,7 +23,7 @@ export class SearchComponent implements OnInit {
     event.preventDefault();
     this.noResults = false;
 
-    // Have another function here, which replaces spaces or special characters
+    // Maybe there could be more checks for other characters
     let titleForAPICall = this.titleToSearchFor.value.replaceAll(' ', '+');
 
     // If one wants more than 10 results there's a parameter to ask for second page
@@ -57,4 +54,3 @@ export class SearchComponent implements OnInit {
     }
   }
 }
-

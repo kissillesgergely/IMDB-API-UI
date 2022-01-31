@@ -7,8 +7,8 @@ import { IResult, ResultMap } from 'src/types/result';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'imdb-api-ui';
-  resultsInYearGroups = new Map<string, IResult[]>();
+  title: string = 'imdb-api-ui';
+  resultsInYearGroups: ResultMap = new Map<string, IResult[]>();
 
   handleResultReady(data: ResultMap) {
     this.resultsInYearGroups = data;

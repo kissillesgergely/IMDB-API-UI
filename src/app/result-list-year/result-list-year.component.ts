@@ -14,5 +14,4 @@ export class ResultListYearComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

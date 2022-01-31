@@ -15,7 +15,6 @@ export class ResultListItemComponent implements OnInit {
   }
 
   getLinkURL() {
-    return `https://www.imdb.com/title/${this.result.imdbID}/`
+    return `https://www.imdb.com/title/${this.result.imdbID}/`;
   }
-
 }

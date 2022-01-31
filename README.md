@@ -32,3 +32,10 @@ directly to the elements, as there were no too many
 repeating patterns, and the number of added classes are
 usually 1-2 (and at most 4).
 
+There are further comments about the implementation in the code.
+
+I used the title __Harry Potter__ as I was testing the
+application manually because it has two results for the
+year 2010. I didn't find a film or title which has more than
+2 results (I didn't merge multiple pages because of time).
+
