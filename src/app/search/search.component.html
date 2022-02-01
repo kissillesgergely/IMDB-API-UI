@@ -11,8 +11,8 @@
     <div *ngIf="titleToSearchFor.invalid && (titleToSearchFor.dirty || titleToSearchFor.touched)">
       <p class="mt-5 text-red-700">Please use at least two characters</p>
     </div>
-    <div *ngIf="noResults">
-      <p class="mt-5">No results for the searched title</p>
+    <div *ngIf="error">
+      <p class="mt-5">{{errorMessage}}</p>
     </div>
   </form>
 </div>

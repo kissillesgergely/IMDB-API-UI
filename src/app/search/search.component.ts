@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { IResult, ResultMap } from 'src/types/result';
+import { IResult, ResultErrors, ResultMap } from 'src/types/result';
 
 @Component({
   selector: 'app-search',
@@ -12,7 +12,8 @@ export class SearchComponent implements OnInit {
   // With a minimal check if the input is adequate
   titleToSearchFor = new FormControl('', [Validators.minLength(2)]);
   results: IResult[] = [];
-  noResults: boolean = false;
+  error: boolean = false;
+  errorMessage: string = '';
 
   constructor() { }
 
@@ -21,22 +22,30 @@ export class SearchComponent implements OnInit {
 
   async fetchData(event: Event) {
     event.preventDefault();
-    this.noResults = false;
+    this.error = false;
 
     // Maybe there could be more checks for other characters
     let titleForAPICall = this.titleToSearchFor.value.replaceAll(' ', '+');
 
     // If one wants more than 10 results there's a parameter to ask for second page
     // Although this is not implemented here
-    const r = await fetch(
-      `https://www.omdbapi.com/?apikey=8ea39b15&s=${titleForAPICall}&type=movie`
-    );
-    this.results = (await r.json()).Search;
+    try {
+      const r = await fetch(
+        `https://www.omdbapi.com/?apikey=8ea39b15&s=${titleForAPICall}&type=movie`
+      );
+      this.results = (await r.json()).Search;
+    } catch {
+      this.errorMessage = ResultErrors.fetchError;
+      this.error = true;
+      this.resultReady.emit(new Map<string, IResult[]>());
+      return;
+    }
 
     if(!this.results) {
-      this.noResults = true;
-      // make the rest of the app know the new result list is empty
-      this.resultReady.emit(new Map<string, IResult[]>())
+      this.errorMessage = ResultErrors.noResults;
+      this.error = true;
+      // Make the rest of the app know the new result list is empty
+      this.resultReady.emit(new Map<string, IResult[]>());
       return;
     }
     

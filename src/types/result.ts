@@ -7,6 +7,11 @@ export interface IResult {
   Poster: string
 }
 
+export enum ResultErrors {
+  noResults = 'No results for the searched title',
+  fetchError = 'Couldn\'t get the data, there might be a connection issue'
+}
+
 export class Result implements IResult {
   Title: string = '';
   Year: string = '';
