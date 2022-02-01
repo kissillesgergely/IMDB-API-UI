@@ -13,7 +13,7 @@ Here The UI was kept rather minimal,
  * ✔ __The usage of a JS framework of your choice is mandatory. We recommend to use Angular, but feel free to use the framework you are most comfortable with.__ \
   I chose Angular.
 * ✔ __The proper use of Typescript is desirable.__ \
-I used an interface, a class, and enum and a type, which I found
+I used an interface, a class, an enum and a type, which I found
 sufficient to implement the features. See them under: \
 `tpyes/result.ts`
 * ✔ __Use git for version control and share the repo folder (in a file or GitHub repository).__
